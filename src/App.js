@@ -1,23 +1,83 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
 
 function App() {
+  // making state of our application
+
+  const [weight, setWeight] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [bmi, setBmi] = useState("");
+  const [message, setMessage] = useState("");
+
+  // Logic
+
+  let calcBmi = (e) => {
+    e.preventDefault();
+
+    if (weight === 0 || height === 0) {
+      alert("please enter a valid weight and height");
+    } else {
+      let bmi = (Number(weight) / Number(height * height)) * 703;
+      setBmi(bmi.toFixed(1));
+
+      if (bmi < 25) {
+        setMessage("You are underweight");
+      } else if (bmi >= 25 && bmi < 30) {
+        setMessage("You are a healthy weight ");
+      } else {
+        setMessage("You are Overweight");
+      }
+    }
+  };
+
+  // reload
+
+  let reload = () => {
+    setHeight(0);
+    setWeight(0);
+    setBmi("");
+    setMessage("");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <h2>BMI Calculator </h2>
+        <form onSubmit={calcBmi}>
+          <div>
+            <label>Weight (ibs)</label>
+            <input
+              type="text"
+              placeholder="Enter Weight value"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Height (in)</label>
+            <input
+              type="text"
+              placeholder="Enter Height value"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <button className="btn" type="submit">
+              Submit
+            </button>
+            <button className="btn btn-outline" onClick={reload} type="submit">
+              Reload
+            </button>
+          </div>
+
+          <div className="center">
+            <h3>Your BMI is:{bmi}</h3>
+            <p>{message}</p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
