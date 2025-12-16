@@ -1,43 +1,57 @@
 import "./App.css";
-import { useState } from "react";
+import { useState } from 'react';
 
 function App() {
-  // making state of our application
+ // making state of our application
 
-  const [weight, setWeight] = useState(0);
-  const [height, setHeight] = useState(0);
-  const [bmi, setBmi] = useState("");
-  const [message, setMessage] = useState("");
+  const [ weight, setWeight] = useState(0);
+  const [ height, setHeight] = useState(0);
+  const [bmi, setBmi] = useState('');
+  const [message, setMessage] = useState('');
 
-  // Logic
 
-  let calcBmi = (e) => {
-    e.preventDefault();
+// Logic
 
-    if (weight === 0 || height === 0) {
-      alert("please enter a valid weight and height");
-    } else {
-      let bmi = (Number(weight) / Number(height * height)) * 703;
+let calcBmi = (e) => {
+
+  e.preventDefault();
+
+    if(weight === 0 || height === 0)
+    {
+      alert('please enter a valid weight and height');
+    }
+
+    else{
+      let bmi = (Number(weight)/Number(height*height)*703)
       setBmi(bmi.toFixed(1));
 
-      if (bmi < 25) {
-        setMessage("You are underweight");
-      } else if (bmi >= 25 && bmi < 30) {
-        setMessage("You are a healthy weight ");
-      } else {
-        setMessage("You are Overweight");
+
+
+      if(bmi<25){
+        setMessage('You are underweight')
+      }
+      
+      else if (bmi>= 25 && bmi <30){
+        setMessage('You are a healthy weight ')
+      }
+
+      else{
+        setMessage('You are Overweight')
       }
     }
-  };
+}
 
-  // reload
 
-  let reload = () => {
-    setHeight(0);
-    setWeight(0);
-    setBmi("");
-    setMessage("");
-  };
+
+
+// reload
+
+let reload = () => {
+  window.location.reload()
+}
+
+
+
 
   return (
     <div className="App">
